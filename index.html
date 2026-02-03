@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARMUT SPOR 2024 | Official Global Data Center</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#050505">
+    <link rel="manifest" href="data:application/manifest+json;base64,ewogICJuYW1lIjogIkFSTVVUIFNQT1IgMjAyNCIsCiAgInNob3J0X25hbWUiIjogIkFSTVVUIFNQT1IiLAogICJzdGFydF91cmwiOiAiLiIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgInRoZW1lX29sb3IiOiAiIzM5RkYxNCIsCiAgImljb25zIjogWwogICAgewogICAgICAic3JjIjogImh0dHBzOi8vaS5pYmIuY28vWGZxbUYzR2svNDMzLUE2NUU3LTBEQTMtNEI0RC1CNjk2LUE1OEZDNDkzNEM4Qi5qcGciLAogICAgICAic2l6ZXMiOiAiNTEyeDUxMiIsCiAgICAgICJ0eXBlIjogImltYWdlL2pwZyIKICAgIH0KICBdCn0=">
+
+    <style>
+        :root { --neon: #39FF14; --bg: #050505; --card: #111; --border: #222; }
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+        body { background: var(--bg); color: #fff; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; }
+
+        /* HEADER - CORPORATE ARCHITECTURE */
+        header {
+            display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: center;
+            padding: 10px 3%; background: #000; border-bottom: 2px solid var(--neon);
+            position: sticky; top: 0; z-index: 1000;
+        }
+
+        .brand-zone { display: flex; align-items: center; gap: 15px; }
+        .main-logo { height: 60px; border: 1px solid var(--neon); border-radius: 4px; padding: 2px; background: #fff; }
+        .brand-name { font-family: 'Orbitron'; color: var(--neon); font-size: 20px; font-weight: 900; letter-spacing: -1px; }
+
+        .broadcast-center { display: flex; justify-content: center; gap: 15px; }
+        .match-live { background: #111; padding: 6px 12px; border-radius: 4px; border-left: 3px solid var(--neon); display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; }
+        .channel-icon { height: 16px; filter: brightness(1.5); }
+
+        .time-zone { display: flex; flex-direction: column; align-items: flex-end; font-family: 'Orbitron'; color: var(--neon); font-size: 14px; }
+        #live-clock { font-size: 18px; font-weight: 900; }
+
+        /* MAIN MASTER GRID */
+        .master-grid { display: grid; grid-template-columns: 20% 58% 22%; gap: 15px; padding: 15px; max-width: 1800px; margin: 0 auto; }
+
+        /* SOL: LİG MERKEZİ */
+        .panel { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px; height: fit-content; }
+        .panel-header { color: var(--neon); font-family: 'Orbitron'; font-size: 13px; margin-bottom: 12px; border-bottom: 1px solid #333; padding-bottom: 6px; text-transform: uppercase; }
+
+        /* ORTA: TRANSFER GRID (2'Lİ SİSTEM) */
+        .transfer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .t-card { background: #080808; border: 1px solid #222; border-radius: 8px; display: flex; height: 150px; overflow: hidden; transition: 0.3s; }
+        .t-card:hover { border-color: var(--neon); transform: translateY(-2px); }
+        .t-img { width: 110px; height: 100%; object-fit: cover; background: #151515; }
+        .t-info { padding: 12px; flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 4px; }
+        .t-info strong { color: var(--neon); font-size: 15px; font-family: 'Orbitron'; display: block; margin-bottom: 4px; }
+        .t-row { font-size: 12px; display: flex; justify-content: space-between; border-bottom: 1px solid #1a1a1a; padding: 2px 0; }
+        .t-row b { color: #777; font-size: 9px; text-transform: uppercase; }
+
+        /* SAĞ: KARİYER ARŞİVİ & ARAMA */
+        .search-wrapper { position: relative; margin-bottom: 15px; }
+        #player-search { width: 100%; padding: 12px; background: #1a1a1a; border: 1px solid var(--neon); color: #fff; border-radius: 4px; font-family: 'Rajdhani'; font-size: 16px; }
+        .career-stack { display: flex; flex-direction: column; gap: 10px; }
+        .c-item { display: flex; align-items: center; gap: 12px; padding: 10px; background: #0d0d0d; border-radius: 6px; border: 1px solid #222; transition: 0.3s; }
+        .c-item.pinned { border-left: 4px solid var(--neon); background: #151515; }
+        .c-avatar { width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--neon); object-fit: cover; }
+        .c-item strong { font-size: 14px; letter-spacing: 0.5px; }
+
+        /* FOOTER TICKER */
+        .ticker-fixed { position: fixed; bottom: 0; width: 100%; background: #000; border-top: 1px solid var(--neon); z-index: 2000; height: 50px; }
+
+        #pwa-btn { position: fixed; top: 85px; left: 20px; background: var(--neon); color: #000; border: none; padding: 10px 20px; border-radius: 4px; font-family: 'Orbitron'; font-weight: 900; font-size: 12px; cursor: pointer; z-index: 1001; display: none; box-shadow: 0 0 15px var(--neon); }
+        
+        @media (max-width: 1100px) { .master-grid { grid-template-columns: 1fr; } .transfer-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<button id="pwa-btn">UYGULAMAYI YÜKLE</button>
+
+<header>
+    <div class="brand-zone">
+        <img src="https://i.ibb.co/XfqmF3Gk/433-A65-E7-0-DA3-4-B4-D-B696-A58-FC4934-C8-B.jpg" class="main-logo" alt="ARMUT SPOR">
+        <div class="brand-name">ARMUT SPOR 2024</div>
+    </div>
+    
+    <div class="broadcast-center">
+        <div class="match-live">
+            <span>20:45 GS - FB</span>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/BeIN_Sports_logo.svg/1200px-BeIN_Sports_logo.svg.png" class="channel-icon">
+        </div>
+        <div class="match-live">
+            <span>22:00 RM - BAR</span>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/2/23/S_Sport_logo.png" class="channel-icon" style="background:#fff; border-radius:2px;">
+        </div>
+    </div>
+
+    <div class="time-zone">
+        <div id="live-clock">00:00:00</div>
+        <div id="live-date">03 ŞUBAT 2026</div>
+    </div>
+</header>
+
+<div class="master-grid">
+    <aside class="panel">
+        <h3 class="panel-header">TÜRKİYE & DÜNYA LİGLERİ</h3>
+        <iframe src="https://www.scoreaxis.com/widget/standings-widget/1?autoHeight=1&font=Rajdhani&textColor=%23ffffff&bodyBackground=%23111111&headerBackground=%23000000&borderColor=%2339FF14" style="width:100%; height:750px; border:none;"></iframe>
+    </aside>
+
+    <main class="panel">
+        <h3 class="panel-header">FLAŞ TRANSFER MERKEZİ</h3>
+        <div class="transfer-grid" id="main-news-feed">
+            </div>
+    </main>
+
+    <aside class="panel">
+        <h3 class="panel-header">KARİYER YOLCULUĞU</h3>
+        <div class="search-wrapper">
+            <input type="text" id="player-search" placeholder="Futbolcu Ara..." onkeyup="filterCareer()">
+        </div>
+        <div class="career-stack" id="career-engine">
+            <div class="c-item pinned">
+                <img src="https://i.ibb.co/XfqmF3Gk/433-A65-E7-0-DA3-4-B4-D-B696-A58-FC4934-C8-B.jpg" class="c-avatar">
+                <div><strong>EMİR ÖZKAYA</strong><br><small style="color:var(--neon)">ARMUT SPOR ELITE</small></div>
+            </div>
+            <div class="c-item pinned">
+                <img src="https://i.ibb.co/XfqmF3Gk/433-A65-E7-0-DA3-4-B4-D-B696-A58-FC4934-C8-B.jpg" class="c-avatar">
+                <div><strong>İLBER İBRAHİM ÖZKAYA</strong><br><small style="color:var(--neon)">ARMUT SPOR ELITE</small></div>
+            </div>
+            <div id="dynamic-trending-list"></div>
+        </div>
+    </aside>
+</div>
+
+<div class="ticker-fixed">
+    <iframe src="https://www.scoreaxis.com/widget/live-score-widget?font=Rajdhani&textColor=%23ffffff&bodyBackground=%23000000&borderColor=%2339FF14" style="width:100%; height:50px; border:none;"></iframe>
+</div>
+
+<script>
+    // 1. CANLI SAAT MOTORU
+    function updateClock() {
+        const now = new Date();
+        document.getElementById('live-clock').innerText = now.toLocaleTimeString('tr-TR', { hour12: false });
+        const options = { day: 'numeric', month: 'long', year: 'numeric' };
+        document.getElementById('live-date').innerText = now.toLocaleDateString('tr-TR', options).toUpperCase();
+    }
+    setInterval(updateClock, 1000);
+
+    // 2. GÜNCEL VERİ SETİ (2026 STANDARTLARI)
+    const newsData = [
+        { name: "Victor Osimhen", from: "Napoli", to: "Galatasaray", fee: "€75M Val.", term: "2026/1Y", img: "https://via.placeholder.com/110x150/111/39FF14?text=OSIMHEN" },
+        { name: "Kylian Mbappe", from: "PSG", to: "Real Madrid", fee: "Serbest", term: "2029/5Y", img: "https://via.placeholder.com/110x150/111/39FF14?text=MBAPPE" },
+        { name: "Arda Güler", from: "FB", to: "RM", fee: "€20M", term: "2029/6Y", img: "https://via.placeholder.com/110x150/111/39FF14?text=ARDA" },
+        { name: "Florian Wirtz", from: "Leverkusen", to: "Man City", fee: "€130M", term: "2030/5Y", img: "https://via.placeholder.com/110x150/111/39FF14?text=WIRTZ" }
+    ];
+
+    const trendingPlayers = ["Lamine Yamal", "Jude Bellingham", "Erling Haaland", "Vinícius Júnior", "Gavi", "Musiala"];
+
+    // 3. RENDER FONKSİYONLARI
+    function renderApp() {
+        // Orta Alan: 2'li Grid
+        document.getElementById('main-news-feed').innerHTML = newsData.map(n => `
+            <div class="t-card">
+                <img src="${n.img}" class="t-img">
+                <div class="t-info">
+                    <strong>${n.name.toUpperCase()}</strong>
+                    <div class="t-row"><b>GELDİĞİ:</b><span>${n.from}</span></div>
+                    <div class="t-row"><b>GİTTİĞİ:</b><span>${n.to}</span></div>
+                    <div class="t-row"><b>BEDEL:</b><span>${n.fee}</span></div>
+                    <div class="t-row"><b>SÜRE:</b><span>${n.term}</span></div>
+                </div>
+            </div>
+        `).join('');
+
+        // Sağ Alan: Dinamik Liste
+        document.getElementById('dynamic-trending-list').innerHTML = trendingPlayers.map(p => `
+            <div class="c-item">
+                <img src="https://via.placeholder.com/45/222/39FF14?text=P" class="c-avatar">
+                <div><strong>${p.toUpperCase()}</strong><br><small>TRENDING PLAYER</small></div>
+            </div>
+        `).join('');
+    }
+
+    // 4. ARAMA MOTORU FONKSİYONU
+    function filterCareer() {
+        const val = document.getElementById('player-search').value.toLowerCase();
+        const items = document.querySelectorAll('.c-item');
+        items.forEach(item => {
+            const text = item.innerText.toLowerCase();
+            item.style.display = text.includes(val) ? "flex" : "none";
+        });
+    }
+
+    // 5. PWA KURULUMU
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault(); deferredPrompt = e;
+        document.getElementById('pwa-btn').style.display = 'block';
+    });
+    document.getElementById('pwa-btn').addEventListener('click', () => {
+        deferredPrompt.prompt();
+    });
+
+    // BAŞLAT
+    window.onload = () => {
+        renderApp();
+        updateClock();
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('data:text/javascript;base64,c2VsZi5hZGRFdmVudExpc3RlbmVyKCdmZXRjaCcsIGZ1bmN0aW9uKGV2ZW50KSB7fSk7');
+        }
+    };
+</script>
+
+</body>
+</html>
+
