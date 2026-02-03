@@ -4,263 +4,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ARMUT SPOR PRO 2026 | ENTERPRISE EDITION</title>
+    <title>ARMUT SPOR GOLD 2026</title>
     
-    <meta name="description" content="Armut Spor - Dünyanın en büyük spor veri portalı">
     <link rel="apple-touch-icon" href="https://i.ibb.co/vz9p8pW/armut-logo-shield.png">
-    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Orbitron:wght@400;900&family=Inter:wght@300;400;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Orbitron:wght@400;900&family=Inter:wght@400;900&display=swap');
+        :root { --neon: #39FF14; --gold: #D4AF37; --bg: #000000; }
+        body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
+        
+        /* HEADER & NEON KİMLİK */
+        .glass-header { background: rgba(0,0,0,0.9); border-bottom: 2px solid #1a1a1a; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px); }
+        .armut-shield { border: 2px solid var(--neon); border-radius: 12px; padding: 10px; box-shadow: 0 0 15px rgba(57, 255, 20, 0.3); }
+        
+        /* TICKER MOTORU */
+        .ticker-container { background: #050505; border-bottom: 1px solid #222; overflow: hidden; white-space: nowrap; padding: 12px 0; }
+        .ticker-scroll { display: inline-block; animation: scroll 60s linear infinite; }
+        @keyframes scroll { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
+        .match-box { display: inline-flex; align-items: center; gap: 10px; background: #111; padding: 6px 20px; border-radius: 50px; margin-right: 25px; border: 1px solid #222; font-family: 'Orbitron'; font-size: 13px; }
 
-        :root { --neon: #39FF14; --dark: #000000; --panel: #0a0a0a; --gold: #D4AF37; }
-        
-        body { background: var(--dark); color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
-        
-        /* HEADER & LOGO */
-        .master-header { border-bottom: 1px solid #1a1a1a; background: rgba(0,0,0,0.9); backdrop-filter: blur(20px); sticky; top: 0; z-index: 1000; }
-        .armut-logo { width: 70px; height: 70px; border: 2px solid var(--neon); border-radius: 15px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(57,255,20,0.2); background: #000; }
-        
-        /* TICKER SYSTEM */
-        .ticker-wrap { background: #050505; border-bottom: 1px solid #222; padding: 10px 0; overflow: hidden; white-space: nowrap; }
-        .ticker-move { display: inline-block; animation: ticker-scroll 80s linear infinite; }
-        @keyframes ticker-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        
-        .score-card { display: inline-flex; align-items: center; gap: 10px; background: #111; padding: 5px 20px; border-radius: 30px; margin-right: 20px; border: 1px solid #222; font-family: 'Orbitron'; font-size: 12px; }
-        .live-dot { width: 8px; height: 8px; background: var(--neon); border-radius: 50%; animation: pulse 1s infinite; }
+        /* LAYOUT */
+        .grid-master { display: grid; grid-template-columns: 320px 1fr 320px; gap: 20px; padding: 20px; max-width: 1800px; margin: 0 auto; }
+        @media (max-width: 1200px) { .grid-master { grid-template-columns: 1fr; } }
 
-        /* GRID SYSTEM */
-        .main-layout { display: grid; grid-template-columns: 320px 1fr 320px; gap: 25px; padding: 25px; max-width: 1900px; margin: 0 auto; }
-        @media (max-width: 1280px) { .main-layout { grid-template-columns: 1fr; } }
+        /* KARTLAR */
+        .pro-panel { background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 20px; padding: 20px; transition: 0.3s hover; }
+        .pro-panel:hover { border-color: var(--neon); }
+        .player-img-circle { width: 70px; height: 70px; border-radius: 50%; border: 2px solid var(--neon); object-fit: cover; background: #1a1a1a; }
         
-        .panel { background: var(--panel); border: 1px solid #1a1a1a; border-radius: 20px; padding: 20px; position: relative; }
-        .panel-title { font-family: 'Syncopate'; font-size: 10px; color: #666; letter-spacing: 3px; margin-bottom: 20px; border-left: 3px solid var(--neon); padding-left: 10px; text-transform: uppercase; }
-
-        /* NEWS & CARDS */
-        .news-card { border-radius: 15px; overflow: hidden; background: #111; transition: 0.3s; border: 1px solid #1a1a1a; cursor: pointer; }
-        .news-card:hover { border-color: var(--neon); transform: translateY(-5px); }
-        .news-img { width: 100%; height: 220px; object-cover: center; }
-
-        /* VIP STATUS */
-        .vip-badge { background: var(--gold); color: #000; font-size: 9px; font-weight: 900; padding: 2px 8px; border-radius: 4px; }
-        
-        /* SAHA (PITCH) */
-        .pitch-container { background: linear-gradient(to bottom, #1a3a1a, #0d1a0d); border-radius: 30px; border: 2px solid #222; position: relative; padding: 40px 20px; }
-        .player-node { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 5px; }
-        .player-img { width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--neon); object-fit: cover; background: #222; }
-
-        /* SCROLLBAR */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        /* SAHA TASARIMI */
+        .stadium-pitch { background: linear-gradient(180deg, #0a1f0a 0%, #000 100%); border-radius: 40px; border: 1px solid #1a3a1a; padding: 40px; position: relative; }
+        .pitch-line { position: absolute; top: 50%; left: 0; width: 100%; height: 1px; background: rgba(57, 255, 20, 0.1); }
     </style>
 </head>
 <body>
 
-    <div class="ticker-wrap">
-        <div class="ticker-move" id="top-ticker">
+    <div class="ticker-container">
+        <div class="ticker-scroll" id="live-ticker">
             </div>
     </div>
 
-    <header class="master-header p-6 flex justify-between items-center">
-        <div class="flex items-center gap-6">
-            <div class="armut-logo">
-                <i class="fas fa-shield-halved text-neon text-3xl"></i>
+    <header class="glass-header p-5 flex justify-between items-center">
+        <div class="flex items-center gap-5">
+            <div class="armut-shield">
+                <i class="fas fa-shield-halved text-neon text-4xl"></i>
             </div>
             <div>
                 <h1 class="text-4xl font-black italic font-['Syncopate'] tracking-tighter">ARMUT SPOR</h1>
-                <p class="text-[9px] text-neon tracking-[0.5em] font-bold uppercase">Enterprise Intelligence 2026</p>
+                <p class="text-[10px] text-neon tracking-[0.4em] font-bold uppercase">Global Data Engine 2026</p>
             </div>
         </div>
-        
-        <div class="flex items-center gap-8">
-            <div class="text-right hidden md:block">
-                <div id="clock" class="text-3xl font-black font-['Orbitron']">15:24</div>
-                <div class="text-[10px] text-gray-500 uppercase font-bold">3 ŞUBAT 2026, SALI</div>
+        <div class="flex items-center gap-10">
+            <div class="text-right">
+                <div id="clock" class="text-3xl font-black font-['Orbitron']">--:--</div>
+                <div class="text-[10px] text-gray-500 font-black">3 ŞUBAT 2026 SALI</div>
             </div>
-            <button onclick="window.print()" class="bg-white text-black px-8 py-3 rounded-full font-black text-xs hover:bg-neon transition-all">PWA YÜKLE</button>
+            <button class="bg-neon text-black px-8 py-3 rounded-xl font-black text-xs uppercase hover:scale-105 transition">Uygulamayı Yükle</button>
         </div>
     </header>
 
-    <main class="main-layout">
-        
-        <aside class="space-y-6">
-            <div class="panel">
-                <h2 class="panel-title">Süper Lig Puan Durumu</h2>
-                <iframe src="https://www.scoreaxis.com/widget/league-table/13?theme=dark&header=0" width="100%" height="500px" style="border:none;"></iframe>
-            </div>
-            <div class="panel">
-                <h2 class="panel-title">Premier Lig</h2>
-                <iframe src="https://www.scoreaxis.com/widget/league-table/8?theme=dark&header=0" width="100%" height="400px" style="border:none;"></iframe>
+    <div class="grid-master">
+        <aside class="space-y-5">
+            <div class="pro-panel">
+                <h3 class="text-xs font-black text-gray-500 mb-4 tracking-widest uppercase italic">Trendyol Süper Lig</h3>
+                <iframe src="https://www.scoreaxis.com/widget/league-table/13?theme=dark&header=0" width="100%" height="550px" style="border:none;"></iframe>
             </div>
         </aside>
 
-        <section class="space-y-8">
+        <main class="space-y-8">
             <div class="relative">
-                <input type="text" id="mainSearch" placeholder="FUTBOLCU, TAKIM VEYA HABER ARA..." class="w-full bg-[#111] border-2 border-[#222] rounded-2xl p-6 font-['Orbitron'] text-neon focus:border-neon outline-none">
-                <i class="fas fa-search absolute right-6 top-7 text-gray-600 text-xl"></i>
+                <input type="text" placeholder="DÜNYA FUTBOLUNU ARA (İSİM, TAKIM, ÜLKE)..." class="w-full bg-[#111] border-2 border-[#222] rounded-2xl p-6 font-['Orbitron'] text-neon focus:border-neon outline-none text-xl">
+                <i class="fas fa-bolt absolute right-8 top-7 text-neon text-2xl animate-pulse"></i>
             </div>
 
-            <div id="news-feed" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                </div>
-
-            <div class="pitch-container">
-                <h2 class="text-center font-black italic text-white/20 absolute inset-0 flex items-center justify-center text-6xl pointer-events-none">ARMUT ELITE 11</h2>
+            <div class="stadium-pitch">
+                <div class="pitch-line"></div>
+                <h2 class="text-center font-black text-white/5 text-7xl absolute inset-0 flex items-center justify-center pointer-events-none">ARMUT ELITE</h2>
                 
-                <div class="flex justify-center gap-20 mb-16">
-                    <div class="player-node">
-                        <img src="https://i.ibb.co/vz9p8pW/armut-logo-shield.png" class="player-img !border-gold !w-24 !h-24">
-                        <span class="vip-badge">BAŞKAN</span>
-                        <b class="text-sm">EMİR ÖZKAYA</b>
+                <div class="flex justify-center gap-24 mb-12 relative z-10">
+                    <div class="text-center">
+                        <img src="https://i.ibb.co/vz9p8pW/armut-logo-shield.png" class="player-img-circle !border-gold !w-24 !h-24">
+                        <p class="text-gold font-black mt-2">EMİR ÖZKAYA</p>
+                        <span class="text-[9px] bg-gold text-black px-2 py-0.5 rounded font-bold">BAŞKAN</span>
                     </div>
-                    <div class="player-node">
-                        <img src="https://i.ibb.co/vz9p8pW/armut-logo-shield.png" class="player-img !border-gold !w-24 !h-24">
-                        <span class="vip-badge">KAPTAN</span>
-                        <b class="text-sm">İLBER ÖZKAYA</b>
+                    <div class="text-center">
+                        <img src="https://i.ibb.co/vz9p8pW/armut-logo-shield.png" class="player-img-circle !border-gold !w-24 !h-24">
+                        <p class="text-gold font-black mt-2">İLBER İBRAHİM</p>
+                        <span class="text-[9px] bg-gold text-black px-2 py-0.5 rounded font-bold">KAPTAN</span>
                     </div>
                 </div>
 
-                <div id="pitch-players" class="grid grid-cols-4 gap-8">
+                <div id="pitch-roster" class="grid grid-cols-4 gap-10">
                     </div>
             </div>
-        </section>
 
-        <aside class="space-y-6">
-            <div class="panel bg-gradient-to-b from-[#111] to-black">
-                <h2 class="panel-title">VIP Management</h2>
-                <div class="space-y-4">
-                    <div class="flex items-center gap-4 p-3 bg-black/40 rounded-xl border border-gold/20">
-                        <div class="w-10 h-10 rounded-full bg-gold flex items-center justify-center text-black font-black">E</div>
-                        <div>
-                            <p class="text-xs font-black">Emir Özkaya</p>
-                            <p class="text-[9px] text-gold uppercase">Sistem Sahibi</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-4 p-3 bg-black/40 rounded-xl border border-gold/20">
-                        <div class="w-10 h-10 rounded-full bg-gold flex items-center justify-center text-black font-black">İ</div>
-                        <div>
-                            <p class="text-xs font-black">İlber İbrahim</p>
-                            <p class="text-[9px] text-gold uppercase">Teknik Direktör</p>
-                        </div>
-                    </div>
+            <div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                </div>
+        </main>
+
+        <aside class="space-y-5">
+            <div class="pro-panel bg-gradient-to-br from-[#111] to-black">
+                <h3 class="text-xs font-black text-neon mb-4 uppercase">Sistem Logları</h3>
+                <div id="log-console" class="font-mono text-[10px] text-green-800 space-y-1 h-32 overflow-hidden">
+                    <p>> 2026 Veri tabanı bağlandı.</p>
                 </div>
             </div>
 
-            <div class="panel">
-                <h2 class="panel-title">Canlı Skorlar</h2>
-                <div id="live-scores-list" class="space-y-3">
+            <div class="pro-panel">
+                <h3 class="text-xs font-black text-gray-500 mb-4 uppercase">Canlı Skor Merkezi</h3>
+                <div id="sidebar-scores" class="space-y-3">
                     </div>
             </div>
         </aside>
-    </main>
+    </div>
 
-    <div class="fixed bottom-0 left-0 w-full ticker-wrap border-t border-neon/30 z-[2000]">
-        <div class="ticker-move" id="bottom-ticker">
+    <div class="fixed bottom-0 left-0 w-full bg-black border-t-2 border-neon/30 p-2 z-[2000]">
+        <div class="ticker-scroll" id="footer-ticker">
             </div>
     </div>
 
     <script>
-        // MASTER DATA BANK (Gerçek Veri Simülasyonu)
-        const ARMUT_DB = {
+        const DATA = {
             players: [
-                { name: "Victor Osimhen", team: "Galatasaray", img: "https://img.a.transfermarkt.technology/portrait/header/405581-1725354972.jpg", role: "FORVET" },
-                { name: "Arda Güler", team: "Real Madrid", img: "https://img.a.transfermarkt.technology/portrait/header/895924-1691418701.jpg", role: "MAESTRO" },
-                { name: "Erling Haaland", team: "Man City", img: "https://img.a.transfermarkt.technology/portrait/header/418560-1656515814.jpg", role: "GOL MAKİNESİ" },
-                { name: "Lamine Yamal", team: "Barcelona", img: "https://img.a.transfermarkt.technology/portrait/header/922253-1695646173.jpg", role: "ELMAS" },
-                { name: "Mauro Icardi", team: "Galatasaray", img: "https://img.a.transfermarkt.technology/portrait/header/199042-1695646173.jpg", role: "SİLAHŞÖR" },
-                { name: "Kylian Mbappe", team: "Real Madrid", img: "https://img.a.transfermarkt.technology/portrait/header/342229-1682683067.jpg", role: "HIZ" },
-                { name: "Ferdi Kadıoğlu", team: "Brighton", img: "https://img.a.transfermarkt.technology/portrait/header/369316-1682683067.jpg", role: "BEK" },
-                { name: "Semih Kılıçsoy", team: "Beşiktaş", img: "https://img.a.transfermarkt.technology/portrait/header/983984-1682683067.jpg", role: "YILDIZ" }
+                { name: "V. Osimhen", team: "GS", img: "https://img.a.transfermarkt.technology/portrait/header/405581-1725354972.jpg" },
+                { name: "Arda Güler", team: "RM", img: "https://img.a.transfermarkt.technology/portrait/header/895924-1691418701.jpg" },
+                { name: "E. Haaland", team: "MC", img: "https://img.a.transfermarkt.technology/portrait/header/418560-1656515814.jpg" },
+                { name: "L. Yamal", team: "BAR", img: "https://img.a.transfermarkt.technology/portrait/header/922253-1695646173.jpg" }
             ],
             news: [
-                { title: "OSIMHEN GALATASARAY'DA KALMAYA KARAR VERDİ", team: "Galatasaray", img: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1000", desc: "3 Şubat 2026: Nijeryalı yıldız, taraftarın sevgisi sonrası sözleşmeyi imzaladı." },
-                { title: "ARDA GÜLER MANCHESTER CITY YOLUNDA", team: "Man City", img: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1000", desc: "Guardiola'nın prensi Arda için 120 milyon Euro teklif edildi." },
-                { title: "MBAPPE REAL MADRID İLE TARİH YAZIYOR", team: "Real Madrid", img: "https://images.unsplash.com/photo-1551952237-954a0e68786c?q=80&w=1000", desc: "Kralın takımı 2026 Şampiyonlar Ligi'nde finale yükseldi." },
-                { title: "ARMUT SPOR DÜNYA DEVİ OLUYOR", team: "Armut Spor", img: "https://images.unsplash.com/photo-1522778119026-d647f0596c20?q=80&w=1000", desc: "Emir Özkaya ve İlber Özkaya yönetimindeki ekip global arenada." }
+                { t: "OSIMHEN GALATASARAY'DA KALDI", d: "3 Şubat 2026: Nijeryalı yıldız 5 yıllık imzayı attı.", i: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1000" },
+                { t: "ARDA GÜLER CITY'YE TRANSFER OLDU", d: "Guardiola 150M Euro'luk rekoru kırdı.", i: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1000" }
             ],
-            live: [
-                "ARSENAL 2-2 CHELSEA (88')", "MILAN 1-0 BOLOGNA (MS)", "GALATASARAY 3-0 FENERBAHÇE (MS)", "LIVERPOOL 4-1 MAN UTD (75')", "REAL MADRID 2-0 GETAFE (32')", "BJK 2-1 TRABZON (60')"
-            ],
-            future: [
-                "22:45 | BARCELONA - ATLETICO", "23:00 | MAN CITY - ARSENAL", "21:00 | EYÜPSPOR - GALATASARAY", "22:00 | PSG - MARSİLYA"
-            ]
+            scores: ["GS 3-1 FB (MS)", "ARS 2-2 CHE (88')", "LIV 4-0 MU (MS)", "RM 2-1 ATL (MS)", "MC 3-1 ARS (75')"]
         };
 
-        // ENGINE FUNCTIONS
-        function initProSystem() {
-            renderTickers();
-            renderNews();
-            renderPitch();
-            renderLiveList();
-            startClock();
-            setupSearch();
-        }
+        function startEngine() {
+            // Clock
+            setInterval(() => {
+                document.getElementById('clock').innerText = new Date().toLocaleTimeString('tr-TR', {hour:'2-digit', minute:'2-digit'});
+            }, 1000);
 
-        function renderTickers() {
-            const top = document.getElementById('top-ticker');
-            const bottom = document.getElementById('bottom-ticker');
-            
-            top.innerHTML = [...ARMUT_DB.future, ...ARMUT_DB.future].map(m => `
-                <div class="score-card"><i class="far fa-calendar-alt text-neon"></i> ${m}</div>
+            // Renders
+            const roster = document.getElementById('pitch-roster');
+            roster.innerHTML = DATA.players.map(p => `
+                <div class="text-center">
+                    <img src="${p.img}" class="player-img-circle mx-auto">
+                    <p class="text-[10px] font-bold mt-2">${p.name}</p>
+                    <p class="text-[8px] text-neon">${p.team}</p>
+                </div>
             `).join('');
 
-            bottom.innerHTML = [...ARMUT_DB.live, ...ARMUT_DB.live].map(m => `
-                <div class="score-card"><div class="live-dot"></div> ${m}</div>
-            `).join('');
-        }
-
-        function renderNews() {
-            const feed = document.getElementById('news-feed');
-            feed.innerHTML = ARMUT_DB.news.map(n => `
-                <div class="news-card">
-                    <img src="${n.img}" class="news-img">
-                    <div class="p-5">
-                        <span class="text-neon font-black text-[10px] uppercase">${n.team}</span>
-                        <h3 class="text-lg font-black italic mt-2">${n.title}</h3>
-                        <p class="text-xs text-gray-500 mt-3">${n.desc}</p>
+            const news = document.getElementById('news-grid');
+            news.innerHTML = DATA.news.map(n => `
+                <div class="pro-panel overflow-hidden p-0">
+                    <img src="${n.i}" class="w-full h-32 object-cover">
+                    <div class="p-4">
+                        <h4 class="font-black text-sm italic">${n.t}</h4>
+                        <p class="text-[10px] text-gray-500 mt-2">${n.d}</p>
                     </div>
                 </div>
             `).join('');
-        }
 
-        function renderPitch() {
-            const container = document.getElementById('pitch-players');
-            container.innerHTML = ARMUT_DB.players.map(p => `
-                <div class="player-node">
-                    <img src="${p.img}" class="player-img">
-                    <b class="text-[10px] uppercase">${p.name}</b>
-                    <small class="text-[8px] text-neon/60">${p.role}</small>
-                </div>
-            `).join('');
-        }
+            const ticker = document.getElementById('live-ticker');
+            const footer = document.getElementById('footer-ticker');
+            const scoreHTML = DATA.scores.map(s => `<div class="match-box"><span class="w-2 h-2 bg-neon rounded-full animate-pulse"></span> ${s}</div>`).join('');
+            ticker.innerHTML = scoreHTML + scoreHTML;
+            footer.innerHTML = scoreHTML + scoreHTML;
 
-        function renderLiveList() {
-            const list = document.getElementById('live-scores-list');
-            list.innerHTML = ARMUT_DB.live.slice(0, 5).map(s => `
-                <div class="flex justify-between items-center p-3 bg-white/5 rounded-lg border-l-2 border-neon">
-                    <span class="text-xs font-bold">${s.split('(')[0]}</span>
-                    <span class="text-[10px] font-mono text-neon">${s.split('(')[1]}</span>
-                </div>
-            `).join('');
-        }
-
-        function startClock() {
+            // Logs
+            const console = document.getElementById('log-console');
             setInterval(() => {
-                const now = new Date();
-                document.getElementById('clock').innerText = now.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
-            }, 1000);
+                const p = document.createElement('p');
+                p.innerText = `> Veri paketi ${Math.random().toString(36).substring(7)} işlendi.`;
+                console.appendChild(p);
+                if(console.children.length > 8) console.removeChild(console.firstChild);
+            }, 3000);
         }
 
-        function setupSearch() {
-            document.getElementById('mainSearch').addEventListener('input', (e) => {
-                const val = e.target.value.toLowerCase();
-                const filtered = ARMUT_DB.news.filter(n => n.title.toLowerCase().includes(val) || n.team.toLowerCase().includes(val));
-                // Dinamik arama sonuçları...
-            });
-        }
-
-        window.onload = initProSystem;
+        window.onload = startEngine;
     </script>
 </body>
 </html>
